@@ -24,7 +24,7 @@
 	</head>
 	<body>
 		<div class="canvas-body">
-			光与影
+			材质与纹理
 			<canvas id="canvas" width="800px" height="600px">您的设备不支持canvas</canvas>
 		</div>
 		<script src="js/three.min.js" type="text/javascript"></script>
@@ -165,7 +165,7 @@
 			    
 				scene.add(torus1,torus2,torus3,torus4);			   
 			    
-				drawAxes(scene);
+			
 				
 				controls =new THREE.TrackballControls(camera,renderer.domElement);
 				controls.rotateSpeed = 1.0;
