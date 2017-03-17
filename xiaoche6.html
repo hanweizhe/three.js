@@ -49,14 +49,7 @@
 						scene.add(object.children[0]);
 					}
 					
-				},function(xhr){
-						if(xhr.lengthComputable){
-							var percentComplete =xhr.loaded/xhr.total*100;
-							console.log(Math.round(percentComplete,2)+'% downloaded');
-						}
-					},function(error){
-						
-				});
+				},onProgress,onError);
 			});
 //			renderer.render(scene,camera);
 			id=setInterval(draw,20);
