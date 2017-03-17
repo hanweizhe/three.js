@@ -62,7 +62,7 @@
 				camera.lookAt(new THREE.Vector3(0,0,0));
 				scene.add(camera);
 				
-				planeTex = THREE.ImageUtils.loadTexture('img/floor.jpeg',{},function(){
+				planeTex = THREE.ImageUtils.loadTexture('img/floor.jpg',{},function(){
 					renderer.render(scene,camera);
 				});
 				planeMaterial = new THREE.MeshLambertMaterial({
