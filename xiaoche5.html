@@ -71,7 +71,7 @@
 				plane= new THREE.Mesh(new THREE.PlaneGeometry(40,40,30,30),planeMaterial);
 				plane.receiveShadow=true;
 				plane.rotation.x = -Math.PI/2;
-				plane.position.y=0;
+				plane.position.y=-2;
 				scene.add(plane);
 				
 				rearTex = THREE.ImageUtils.loadTexture('img/rear.png',{},function(){
@@ -109,7 +109,7 @@
 		    		materials
 //		    		wireframe:true
 		    	));
-		    	cube.position.y=0;
+		    	cube.position.y=1;
 		    	cube.castShadow=true;
 		    	scene.add(cube);
 			    
