@@ -2,220 +2,220 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<meta name="description" content="" />
 		<meta name="author" content="" />
-		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width,initial-scsale=1,maximum-scale=1" />
 		<title>小车</title>
-		<style type="text/css">
-		     html,body {
-		     	margin: 0;
-		     	padding: 0;
-		     	width: 100%;
-		     	height: 100%;
-		     	font-size: 16px;
-		     }
-			.canvas-body {
-				width: 100%;
-				height: 100%;
-				text-align: center;
-				font-size: 26px;
+		<style>
+			body,html {
+				padding: 0;
+				margin: 0;
+				border: 0;
 			}
 		</style>
 	</head>
 	<body>
-		<div class="canvas-body">
-			动画
-			<canvas id="canvas" width="800px" height="600px">您的设备不支持canvas</canvas>
-		</div>
-		<script src="js/three.min.js" type="text/javascript"></script>
-		<script src="js/stats.js" type="text/javascript"></script>
+		<canvas id="canvas">您的设备不支持canvas</canvas>
+		<script src="js/three.js" type="text/javascript"></script>
+		<!--<script src="js/lib.js" type="text/javascript"></script>-->
+		<script src="js/stats.min.js" type="text/javascript"></script>
 		<script src="js/TrackballControls.js" type="text/javascript"></script>
 		<script type="text/javascript">
-			var renderer,camera,scene,plane,planeTex,planeMaterial,light,cube,cyline1,cyline2,torus1,torus2,torus3,
-				    torus4,rearTex,rearMaterial,frontTex,frontMaterial,asideTex,asideMaterial;
-			var controls;	
+			var camera;
+			var scene;
+			var renderer;
+			var controls;
+			var canvas;
+			var cube={};
+			var floor={};
+			var torusArr=[];
+			var car={};
 			var stats;
-			var materials=[];
-			init();
-			animate();
-		    function init(){
-		    	stats = new Stats();
-		    	stats.domElement.style.position='absolute';
-		    	stats.domElement.style.left='1000px';
-		    	stats.domElement.style.top='100px';
-		    	document.body.appendChild(stats.domElement);
-		    	
-				renderer=new THREE.WebGLRenderer({
-					canvas:document.getElementById('canvas'),
-					antialias:true//消除锯齿
-				});
-				renderer.setClearColor(0xffffff);
-				renderer.shadowMap.enabled=true;
-				renderer.shadowMap.type =THREE.PCFSoftShadowMap;
-				renderer.shadowMapSoft=true;
-				
-				
+			function initThree(){
+				canvas = document.getElementById('canvas');
+				canvas.width=window.innerWidth;
+				canvas.height=window.innerHeight;
 				scene = new THREE.Scene();
-				
-				camera = new THREE.PerspectiveCamera(45, 800/600, 0.1, 1000);
-				camera.position.set(40,36,-38);
-				camera.lookAt(new THREE.Vector3(0,0,0));
-				scene.add(camera);
-				
-				planeTex = THREE.ImageUtils.loadTexture('img/floor.jpg',{},function(){
-					renderer.render(scene,camera);
+				renderer = new THREE.WebGLRenderer({
+					canvas:canvas
 				});
-				planeMaterial = new THREE.MeshLambertMaterial({
-					map:planeTex
-				});
-				plane= new THREE.Mesh(new THREE.PlaneGeometry(40,40,30,30),planeMaterial);
-				plane.receiveShadow=true;
-				plane.rotation.x = -Math.PI/2;
-				plane.position.y=-2;
-				scene.add(plane);
-				
-				rearTex = THREE.ImageUtils.loadTexture('img/rear.png',{},function(){
-					renderer.render(scene,camera);
-				});
-				rearMaterial = new THREE.MeshLambertMaterial({
-					map:rearTex
-				});
-				
-				frontTex = THREE.ImageUtils.loadTexture('img/front.png',{},function(){
-					renderer.render(scene,camera);
-				});
-				frontMaterial = new THREE.MeshLambertMaterial({
-					map:frontTex
-				});
-				
-				asideTex = THREE.ImageUtils.loadTexture('img/aside.png',{},function(){
-					renderer.render(scene,camera);
-				});
-				asideMaterial = new THREE.MeshLambertMaterial({
-					map:asideTex
-				});
-				
-				topMaterial = new THREE.MeshLambertMaterial({
-					color:0xeeee00
-				});
-				
-				materials.push(asideMaterial);
-				materials.push(asideMaterial);
-				materials.push(topMaterial);
-				materials.push(topMaterial);
-				materials.push(frontMaterial);
-				materials.push(rearMaterial);
-		    	cube = new THREE.Mesh(new THREE.BoxGeometry(6,4,8),new THREE.MeshFaceMaterial(
-		    		materials
-//		    		wireframe:true
-		    	));
-		    	cube.position.y=1;
-		    	cube.castShadow=true;
-		    	scene.add(cube);
-			    
-			    cyline1 = new THREE.Mesh(new THREE.CylinderGeometry(0.2,0.2,8,18,3),new THREE.MeshLambertMaterial({
-			    	color:0xbcbcbc
-			    }));
-			    cyline1.rotation.z=Math.PI/2;
-			    cyline1.position.set(0,-1,3);
-			    
-			    cyline1.castShadow=true;
-			    scene.add(cyline1);
-			    
-			    cyline2 = new THREE.Mesh(new THREE.CylinderGeometry(0.2,0.2,8,18,3),new THREE.MeshLambertMaterial({
-			    	color:0xbcbcbc
-			    }));
-			    cyline2.rotateZ(Math.PI/2);
-			    cyline2.position.set(0,-1,-3);
-			    
-			    cyline2.castShadow=true;
-			    scene.add(cyline2);
-			    
-			    var torus1Tex = THREE.ImageUtils.loadTexture('img/timg.jpeg',{},function(){
-					renderer.render(scene,camera);
-				});
-				var torus1Material = new THREE.MeshLambertMaterial({
-					map:torus1Tex
-				});
-				torus1 = new THREE.Mesh(new THREE.TorusGeometry(1,0.3,12,60),torus1Material);
-			    
-			    torus1.position.set(4,-0.8,-3.4);
-			    torus1.rotation.y=Math.PI/2;
-			    torus1.castShadow=true;
-			    
-			    torus2 = new THREE.Mesh(new THREE.TorusGeometry(1,0.3,12,60),new THREE.MeshLambertMaterial({
-			    	color:0xffff00
-			    }));
-			    torus2.position.set(4,-0.8,2.6);
-			    torus2.rotation.y=Math.PI/2;
-			    torus2.castShadow=true;
-			    
-			    torus3 = new THREE.Mesh(new THREE.TorusGeometry(1,0.3,12,60),new THREE.MeshLambertMaterial({
-			    	color:0xffff00
-			    }));
-			    torus3.position.set(-4,-0.8,-3.4);
-			    torus3.rotation.y=Math.PI/2;
-			    torus3.castShadow=true;
-			    
-			    torus4 = new THREE.Mesh(new THREE.TorusGeometry(1,0.3,12,60),new THREE.MeshLambertMaterial({
-			    	color:0x666666
-			    }));
-			    torus4.position.set(-4,-0.8,2.6);
-			    torus4.rotation.y=Math.PI/2;
-			    torus4.castShadow=true;
-			    
-				scene.add(torus1,torus2,torus3,torus4);
-				
-				controls =new THREE.TrackballControls(camera,renderer.domElement);
-				controls.rotateSpeed = 1.0;
-		        controls.zoomSpeed = 1.2;
-		        controls.panSpeed = 0.8;
-		        controls.noZoom = false;
-		        controls.noPan = false;
-		        controls.minDistance=20;
-		        controls.maxDistance=100;
-		        controls.staticMoving = true;
-		        controls.dynamicDampingFactor = 0.3;
-		        controls.keys = [ 65, 83, 68 ];
-		        controls.addEventListener('change', render);
-				
-			    light = new THREE.PointLight(0xffffff);
-				light.position.set(20,30,30);
-				light.castShadow=true;
-				light.target=cube;
-				light.shadow.mapSize.width=2048;
-				light.shadow.mapSize.height=2048;
-				scene.add(light);
-				
-				renderer.render(scene,camera);
-				id=requestAnimationFrame(draw);
+				renderer.setClearColor(0x404040);
+				renderer.shadowMap.enabled=true;
+				renderer.shadowMap.type=THREE.PCFSoftShadowMap;
 			}
 			
-			function draw(){
-				stats.begin();
-//				document.addEventListener('keydown',function(event){
-//					switch(event.keyCode){
-//						case 87:
-//							cube.position.z+=1;
-//							break;
-//						case 83:
-//							break;
-//					}
-//					init();
-//					animate();
-//				})
-				
-				renderer.render(scene,camera);
-				id=requestAnimationFrame(draw);
-				stats.end();
+			function initCamera(){
+				camera=new THREE.PerspectiveCamera(45,window.innerWidth/window.innerHeight,1,100);
+				camera.position.set(0,7,10);
+				camera.lookAt(new THREE.Vector3(0,0,0));
+				scene.add(camera);
 			}
+			
+			function initLight(){
+				var ambienLight = new THREE.AmbientLight(0xaaaaaa);
+				scene.add(ambienLight);
+				
+				var light= new THREE.PointLight(0xffffff);
+				light.position.set(-10,10,7);
+				light.castShadow=true;
+				scene.add(light);
+				
+			}
+			
+			function initControl(){
+				controls= new THREE.TrackballControls(camera,renderer.domElement);
+				controls.rotateSpeed=1.0;
+				controls.zoomSpeed=1.2;
+				controls.panSpeed=0.8;
+				controls.noZoom=false;
+				controls.noPan=false;
+				controls.minDistance=30;
+				controls.maxDistance=100;
+				controls.staticMoving=true;
+				controls.dynamicDampingFactor=0.3;
+				controls.keys=[65,83,68];
+				controls.addEventListener('change',render);
+			}
+			
 			function animate(){
-		        requestAnimationFrame(animate);
-		        controls.update();
-		    }
-		    function render(){
-		        renderer.render(scene, camera);
-		    }
+				controls.update();
+				requestAnimationFrame(animate);
+			}
+			function initFloor(){
+				var texture = new THREE.TextureLoader().load('img/floor.jpg',function(texture){
+					renderer.render(scene,camera);
+				});
+				var material = new THREE.MeshLambertMaterial({
+					map:texture,
+					side:THREE.DoubleSide
+				});
+				floor = new THREE.Mesh(new THREE.PlaneGeometry(16,16,1,1),material);
+				floor.rotation.set(Math.PI/2,0,0);
+				floor.position.set(-1,-0.2,-1);
+				floor.receiveShadow=true;
+				scene.add(floor);
+				
+			}
+			function initCube(){
+				var materials=[];
+				for(var i=1;i<=6;i++){
+					materials.push(new THREE.MeshLambertMaterial({
+						map:new THREE.TextureLoader().load('img/0'+i+'.png',function(){
+							renderer.render(scene,camera);
+						}),
+						overdraw:true
+					}));
+				}
+				cube = new THREE.Mesh(new THREE.CubeGeometry(3,1,1),new THREE.MultiMaterial(materials));
+				cube.position.set(0,.45,0);
+				cube.castShadow=true;
+				scene.add(cube);
+			}
+			
+			var dir=[
+			   [.85,.5],
+			   [.85,-.5],
+			   [-.65,.5],
+			   [-.65,-.5]
+			]
+			function initTorus(){
+				var texture = new THREE.TextureLoader().load('img/wood.jpg',function(){
+					renderer.render(scene,camera);
+				});
+				texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+				texture.repeat.set(1,1);
+				for(var i=0;i<dir.length;i++){
+					var torus = new THREE.Mesh(new THREE.TorusGeometry(.14,.06,20,30),new THREE.MeshLambertMaterial({
+						map:texture,
+						color:0x555555
+					}));
+					torus.castShadow=true;
+					torus.receiveShadow=true;
+					torus.position.set(dir[i][0],0,dir[i][1]);
+					torusArr.push(torus);
+					scene.add(torus);
+				}
+			}
+			
+			function initCar(){
+				car = new THREE.Object3D();
+				car.add(cube);
+				for(var i=0;i<dir.length;i++){
+					car.add(torusArr[i]);
+				}
+				scene.add(car);
+			}
+			var turning =false
+			function move(moveOn){
+				if(turning){
+					turning=false;
+					for(var i=0;i<=1;i++){
+						torusArr[i].rotation.y=0;
+					}
+				}else{
+					var carDirection = car.getWorldDirection();
+					carDirection.applyAxisAngle((new THREE.Vector3(0,1,0)).normalize(),Math.PI/2);
+					var theta = Math.atan2(carDirection.x,carDirection.z);
+					car.position.x+=.1*moveOn*Math.sin(theta);
+					car.position.z+=.1*moveOn*Math.cos(theta);
+				}
+				render();
+			}
+			
+			function turn(turnleft){
+				if(!turning){
+					turning=true;
+				}else{
+					car.rotation.y +=.1*turnleft;
+				}
+				for(var i=0;i<=1;i++){
+					torusArr[i].rotation.y=.5*turnleft;
+				}
+				render();
+			}
+			function initMove(){
+				window.onkeydown=function(e){
+					switch(e.keyCode){
+						case 37:
+						case 65:
+							turn(1);
+							break;
+						case 38:
+						case 87:
+							move(1);
+							break;
+						case 39:
+						case 68:
+							turn(-1);
+							break;
+						case 40:
+						case 83:
+							move(-1);
+							break;
+					}
+				};
+			}
+			function render(){
+				renderer.render(scene,camera);
+				stats.update();
+			}
+			function init(){
+				initThree();
+				initCamera();
+				initLight();
+				initFloor();
+				initCube();
+				initTorus();
+				initCar();
+				stats = new Stats();
+				document.body.appendChild(stats.domElement);
+//				drawAxes(scene);
+				initControl();
+				animate();
+				render();
+				initMove();
+			}
+			init();
 		</script>
 	</body>
 </html>
