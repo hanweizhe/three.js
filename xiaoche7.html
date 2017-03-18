@@ -48,7 +48,7 @@
 			
 			
 			var loader = new THREE.OBJLoader();
-			loader.load('js/port.obj',function(obj){
+			loader.load('loader/port.obj',function(obj){
 				obj.traverse(function(child){
 					if(child instanceof THREE.Mesh){
 						child.material.wireframe=true;
@@ -59,7 +59,7 @@
 				scene.add(obj);
 			})
 			
-			loader.load('js/port.obj',function(obj){
+			loader.load('loader/port.obj',function(obj){
 				obj.traverse(function(child){
 					if(child instanceof THREE.Mesh){
 						child.material = new THREE.MeshLambertMaterial({
@@ -72,7 +72,7 @@
 				scene.add(obj);
 			})
 			
-			loader.load('js/port.obj',function(obj){
+			loader.load('loader/port.obj',function(obj){
 				obj.traverse(function(child){
 					if(child instanceof THREE.Mesh){
 						child.material = new THREE.ShaderMaterial({
