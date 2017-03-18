@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>THree Js</title>
+		<script id="vs" type="x-shader/x-vertex">
+			uniform vec3 color;
+			uniform vec3 light;
+			varying vec3 v_color;
+			varying vec3 v_normal;
+			varying vec3 v_light;
+			void main()
+			{    
+			    v_color = color;
+			    v_normal = normalize(normalMatrix * normal);
+			    
+			    vec4 viewLight = modelViewMatrix * vec4(light,1.0);
+			    v_light=viewLight.xyz;
+			    
+			    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+			}
+		</script>
+		<script id="fs" type="x-shader/x-fragment">
+			varying vec3 v_color;
+			varying vec3 v_normal;
+			varying vec3 v_light;
+			void main() {
+				float silhouette = length(v_normal*vec3(1.0,1.0,0.0));
+				if(silhouette<0.88){
+					silhouette=1.0;
+				}else{
+				 	silhouette=0.0;
+				}
+				
+				float diffuse =dot(normalize(v_light),v_normal);
+				if(diffuse>0.8){
+					diffuse=1.0;
+				}else if(diffuse>0.5){
+					diffuse=0.6;
+				}else if(diffuse >0.2){
+					diffuse=0.4;
+				}else{
+					diffuse=0.2;
+				}
+				diffuse = diffuse*silhouette;
+			    gl_FragColor = vec4(v_color*diffuse, 1.0);
+			}
+		</script>
+	</head>
+	<body>
+		<canvas id="canvas"></canvas>
+		<script src="js/stats.min.js" type="text/javascript"></script>
+		<script type="text/javascript" src="js/three.min.js"></script>
+		<script type="text/javascript" src="js/OBJLoader.js"></script>
+		
+		<script type="text/javascript">
+		
+			var mesh1,mesh2,mesh3;
+			var canvas=document.getElementById('canvas');
+			canvas.width=window.innerWidth;
+			canvas.height=window.innerHeight;
+			var renderer =new THREE.WebGLRenderer({
+				canvas:canvas
+			});
+			renderer.setClearColor(0xcccccc);
+			var scene = new THREE.Scene();
+			
+			var camera= new THREE.PerspectiveCamera(45,window.innerWidth/window.innerHeight,1,1000);
+			camera.position.set(0,10,26);
+			camera.lookAt(new THREE.Vector3(0,0,0));
+			scene.add(camera);
+			
+			var light = new THREE.SpotLight(0xffffff,1.5,100,Math.PI/3);
+			light.position.set(32,23,23);
+			scene.add(light);
+			
+			
+			var loader = new THREE.OBJLoader();
+			loader.load('loader/port.obj',function(obj){
+				obj.traverse(function(child){
+					if(child instanceof THREE.Mesh){
+						child.material.wireframe=true;
+					}
+				});
+				mesh1=obj;
+				obj.position.x=-10;
+				scene.add(obj);
+			})
+			
+			loader.load('loader/port.obj',function(obj){
+				obj.traverse(function(child){
+					if(child instanceof THREE.Mesh){
+						child.material = new THREE.MeshLambertMaterial({
+							color:0xabff33,
+							side:THREE.DoubleSide
+						});	
+					}
+				});
+				mesh2=obj;
+				scene.add(obj);
+			})
+			
+			loader.load('loader/port.obj',function(obj){
+				obj.traverse(function(child){
+					if(child instanceof THREE.Mesh){
+						child.material = new THREE.ShaderMaterial({
+							vertexShader:document.getElementById('vs').textContent,
+							fragmentShader:document.getElementById('fs').textContent,
+							uniforms:{
+								color:{
+									type:'v3',
+									value:new THREE.Color('#cccccc')
+								},
+								light:{
+									type:'v3',
+									value:light.position
+								}
+							}
+						});
+							
+					}
+				});
+				mesh3=obj;
+				obj.position.x=10;
+				scene.add(obj);
+			})
+			var stats= new Stats();
+			document.getElementsByTagName('body')[0].appendChild(stats.domElement);
+			setInterval(draw,20);
+			
+			function draw(){
+				stats.begin();
+				mesh1.rotation.y +=0.01;
+				mesh2.rotation.y +=0.01;
+				mesh3.rotation.y +=0.01;
+				if(mesh1.rotation.y>Math.PI*2){
+					mesh1.rotation.y -=Math.PI*2;
+				}
+				if(mesh2.rotation.y>Math.PI*2){
+					mesh2.rotation.y -=Math.PI*2;
+				}
+				if(mesh3.rotation.y>Math.PI*2){
+					mesh3.rotation.y -=Math.PI*2;
+				}
+				renderer.render(scene,camera);
+				stats.end();
+			}
+		</script>
+	</body>
+</html>
