@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>THree Js</title>
+		<script id="vs" type="x-shader/x-vertex">
+			varying vec2 vUv;
+			void main()
+			{    
+			    vUv = uv;
+			    
+			    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+			}
+		</script>
+		<script id="fs" type="x-shader/x-fragment">
+			varying vec2 vUv;
+			void main() {
+			    gl_FragColor = vec4(vUv.x, vUv.y, 0.0, 1.0);
+			}
+		</script>
+	</head>
+	<body>
+		<canvas id="canvas"></canvas>
+		<script src="js/stats.min.js" type="text/javascript"></script>
+		<script type="text/javascript" src="js/three.min.js"></script>
+		<script type="text/javascript" src="js/OBJLoader.js"></script>
+		
+		<script type="text/javascript">
+		
+			var mesh1,mesh2,mesh3;
+			var canvas=document.getElementById('canvas');
+			canvas.width=window.innerWidth;
+			canvas.height=window.innerHeight;
+			var renderer =new THREE.WebGLRenderer({
+				canvas:canvas
+			});
+			renderer.setClearColor(0xcccccc);
+			var scene = new THREE.Scene();
+			
+			var camera= new THREE.PerspectiveCamera(45,window.innerWidth/window.innerHeight,1,1000);
+			camera.position.set(0,10,26);
+			camera.lookAt(new THREE.Vector3(0,0,0));
+			scene.add(camera);
+			
+			var light = new THREE.SpotLight(0xffffff,1,100,Math.PI/3);
+			light.position.set(0,10,26);
+			scene.add(light);
+			
+			
+			var loader = new THREE.OBJLoader();
+			loader.load('js/port.obj',function(obj){
+				obj.traverse(function(child){
+					if(child instanceof THREE.Mesh){
+						child.material.wireframe=true;
+					}
+				});
+				mesh1=obj;
+				obj.position.x=-10;
+				scene.add(obj);
+			})
+			
+			loader.load('js/port.obj',function(obj){
+				obj.traverse(function(child){
+					if(child instanceof THREE.Mesh){
+						child.material = new THREE.MeshLambertMaterial({
+							color:0xabff33,
+							side:THREE.DoubleSide
+						});	
+					}
+				});
+				mesh2=obj;
+				scene.add(obj);
+			})
+			
+			loader.load('js/port.obj',function(obj){
+				obj.traverse(function(child){
+					if(child instanceof THREE.Mesh){
+						child.material = new THREE.ShaderMaterial({
+							vertexShader:document.getElementById('vs').textContent,
+							fragmentShader:document.getElementById('fs').textContent
+						});
+							
+					}
+				});
+				mesh3=obj;
+				obj.position.x=10;
+				scene.add(obj);
+			})
+			var stats= new Stats();
+			document.getElementsByTagName('body')[0].appendChild(stats.domElement);
+			setInterval(draw,20);
+			
+			function draw(){
+				stats.begin();
+				mesh1.rotation.y +=0.01;
+				mesh2.rotation.y +=0.01;
+				mesh3.rotation.y +=0.01;
+				if(mesh1.rotation.y>Math.PI*2){
+					mesh1.rotation.y -=Math.PI*2;
+				}
+				if(mesh2.rotation.y>Math.PI*2){
+					mesh2.rotation.y -=Math.PI*2;
+				}
+				if(mesh3.rotation.y>Math.PI*2){
+					mesh3.rotation.y -=Math.PI*2;
+				}
+				renderer.render(scene,camera);
+				stats.end();
+			}
+		</script>
+	</body>
+</html>
