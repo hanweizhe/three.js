@@ -4,31 +4,117 @@
 		<meta charset="utf-8" />
 		<title>CSS</title>
 		<style type="text/css">
-			
-			.masked {
-				font-size: 30px;
+			body h1 p {
+				margin: 0;
+				padding: 0;
+			}
+			body h1 {
 				text-align: center;
-				background: -webkit-linear-gradient(left, #147B96, #E6D205 25%, #147B96 50%, #E6D205 75%, #147B96);
-				/*需要注意的是颜色是 0到49%的颜色组 = 50%到99%的颜色组，且最后100%的颜色要和开头0的颜色相等*/
+			}
+			.box {
+				width: 800px;
+				height: 440px;
+				position:absolute;
+				overflow: hidden;
+				left: 50%;
+				top: 50%;
+				display: flex;
+				transform: translate(-50%,-50%);
+			}
+			.box .bg {
+				position: absolute;
+				background: url(img/gril.jpg) no-repeat 0 0/800px #fff;
+				width: 100%;
+				height: 100%;
+				transition: .2s;
+			}
+			.inner {
+				color: #FFFFFF;
+				box-sizing: border-box;
+				width: 600px;
+				height: 200px;
+				margin: auto;
+				position: relative;
+				/*border: 1px solid yellow;*/
+				visibility: hidden;
+				text-align: center;
+			}
+			.inner p {
+				font-size: 30px;
+				font-weight: bold;
+				/*background: -webkit-linear-gradient(left,red,yellow 10%,green 20% blue 30% purple 40%,red 50%,yellow 60%,green 70% blue 80% purple 90%,red);为啥不对*/
+				background: -webkit-linear-gradient(left,#147B96, #E6D205 25%, #147B96 50%, #E6D205 75%, #147B96);
 				-webkit-text-fill-color: transparent;
 				-webkit-background-clip: text;
 				-webkit-background-size: 200% 100%;
-				-webkit-animation:masked-animation 4s infinite linear;
-				
+				-webkit-animation:bg 1.5s infinite linear;
 			}
-			@-webkit-keyframes masked-animation {
-				0% {
-					background-position:0 0;
+			.inner p:before {
+				position: absolute;
+				content:'';
+				left: 50%;
+				top: 0;
+				width: 0;
+				height: 100%;
+				border: 3px solid white;
+				border-width: 3px 0;
+				transition: .6s;
+				box-sizing: border-box;
+			}
+			.inner:hover p:before {
+				left: 0;
+				width: 100%;
+			}
+			.inner p:after {
+				position: absolute;
+				content:'';
+				left:0;
+				top: 50%;
+				width: 100%;
+				height: 0;
+				border: 3px solid white;
+				border-width: 0 3px;
+				transition: .6s;
+				box-sizing: border-box;
+			}
+			.inner:hover p:after {
+				top: 0;
+				height: 100%;
+			}
+			.inner a {
+				text-decoration: none;
+				font-size: 30px;
+				margin-top: -20px;
+		 		position: relative;
+			}
+			@keyframes bg{
+				0%{
+					background-position: 0 0;
 				}
-				100% {
+				100%{
 					background-position: -100% 0;
 				}
+			}
+			.box:hover .inner {
+				visibility: visible;
+			}
+			.box:hover .bg {
+				filter: blur(10px);
+				-webkit-filter: blur(10px);
+				-moz-filter: blur(10px);
+				-ms-filter: blur(10px);
+				-o-filter: blur(10px);
 			}
 		</style>
 	</head>
 	<body>
-		<div class="masked">
-			<h4>这是一段可选文字</h4>
+		<h1>有趣的鼠标悬浮模糊效果</h1>
+		<div class="box">
+			<div class="bg"></div>
+			<div class="inner">
+					<p>世界上最美丽的女人是谁</p>
+					<a href="#">美女</a>
+			</div>
 		</div>
 	</body>
 </html>
