@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>CSS 3</title>
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			body,html {
+				height: 100%;
+				position: relative;
+			}
+			.container {
+				width: 100%;
+				height: 100%;
+				perspective: 2500px;
+				position: absolute;
+			}
+			.stage {
+				width: 100%;
+				height: 100%;
+				transform-style:preserve-3d;
+				position: relative;
+				transform: rotateX(90deg);
+				transition: all 1s linear ;
+			}
+			.stage div{
+				width: 600px;
+				height: 300px;
+				position: absolute;
+				left: calc(50% - 300px);
+				top:calc(50% - 150px);
+				background-size: 100% 100%;
+			}
+			.stage div:nth-child(1){
+				transform: rotateX(-90deg) translateZ(800px);
+				background-image: url(img/1.jpg);
+				background-color: #222;
+			}
+			.stage div:nth-child(2){
+				transform: rotateX(-90deg) rotateY(60deg) translateZ(800px);
+				background-image: url(img/2.jpg);
+				background-color: #444;
+			}
+			.stage div:nth-child(3){
+				transform:rotateX(-90deg) rotateY(120deg) translateZ(800px);
+				background-image: url(img/3.jpg);
+				background-color: #666;
+			}
+			.stage div:nth-child(4){
+				transform:rotateX(-90deg) rotateY(180deg) translateZ(800px);
+				background-image: url(img/4.jpg);
+				background-color: #888;
+			}
+			.stage div:nth-child(5){
+				transform:rotateX(-90deg) rotateY(240deg) translateZ(800px);
+				background-image: url(img/5.jpg);
+				background-color: #aaa;
+			}
+			.stage div:nth-child(6){
+				transform:rotateX(-90deg) rotateY(300deg) translateZ(800px);
+				background-image: url(img/6.jpg);
+				background-color: #ccc;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="stage">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var s =document.querySelector('.stage')
+		var ang = 0;
+		var ismoving =false;
+		var back =false
+		function rotate(){
+			if(ismoving){
+				return
+			}else{
+				ismoving=true
+			}
+			if(back){
+				ang-=60;
+			}else{
+				ang+=60;
+			}
+			s.style.cssText='transform:rotateX(90deg) rotateZ('+ang+'deg);'
+			setTimeout(function(){
+				ismoving=false;
+				back=false
+			},1000)
+		}
+		var c =document.querySelectorAll('.stage div');
+		for(var i=0;i<c.length;i++){
+			c[i].onclick=function(event){
+				event.stopImmediatePropagation()
+				if(!ismoving){
+					if(event.offsetX>400){
+						rotate()
+					}else if(event.offsetX<200){
+						back=true;
+						rotate()
+					}
+				}
+			}
+		}
+		setInterval(rotate,3000)
+	</script>
+</html>
