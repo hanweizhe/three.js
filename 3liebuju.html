@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>三列布局</title>
+		<link rel="stylesheet" href="css/reset.css" type="text/css" />
+		<style type="text/css">
+			body {
+				padding: 20px;
+				background-color: #FFFFFF;
+			}
+			.container {
+				width:100%;
+				min-width: 640px;
+				background-color: #eee;
+				padding: 20px 160px 20px 240px;
+				
+				border: 1px solid #999;
+			}
+			.left {
+				width: 200px;
+				float: left;
+				position: relative;
+				/*left: -220px;和下一行意思相同*/
+				right: 220px;
+				border:1px solid #999;
+				padding: 20px;
+				background-color: #fff;
+				margin-left: -100%;
+			}
+			.leftLogo {
+				display: inline-block;
+				border: 1px solid #999;
+				background: url(img/3.jpg) no-repeat;
+				width: 80px;
+				height: 80px;
+			}
+			.leftName {
+				text-align: center;
+				/*border: 1px solid #999;*/
+				width: 60px;
+				float: right;
+				vertical-align: top;
+			}
+			.main {
+				float: left;
+				padding: 20px;
+				background-color: #FFFFFF;
+				border: 1px solid #999;
+				width: 100%;
+			}
+			.main p {
+				font-size: 16px;
+				line-height: 1.5em;
+				margin-bottom: 6px;
+			}
+			.right {
+				float: left;
+				width: 120px;
+				position: relative;
+				left: 140px;
+				margin-left: -120px;
+				padding: 20px;
+				background-color: #FFFFFF;
+				border: 1px solid #999;
+			}
+			.right-person-logo {
+				display:inline-block;
+				width: 80px;
+				height: 80px;
+				border: 1px solid #999;
+				margin-bottom: 20px;
+				background: url(img/1.jpg) no-repeat;
+			}
+			.right-person-logo:last-child {
+				margin-bottom: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container clearfix">
+			<!--
+				注意三个顺序
+            -->
+			<div class="main">
+				<p>关于团队的介绍</p>
+	            <p>解释一下团队名称的来历，或是分别介绍团队成员</p>
+	            <p>（以下为示例）</p>
+	            <p>百度Web前端技术学院</p>
+	            <p>2017学学期概述</p>
+	            <p>百度前端技术学院是一个为大学生创办的免费的前端技术实践、分享、交流平台。由百度校园招聘组、百度校园品牌部、百度前端技术部以及多个百度的前端团队联合创办。学院组织了一批百度在职工程师，精心编写了数十个实践编码任务，将技术知识点系统有机地串联在各个充满趣味与挑战的任务中，同学们通过实际地编码练习来掌握知识，再辅以互相评价、学习笔记等方式，加深对于学习内容的理解。在过去的三年中，百度前端技术学院累积吸引了上万名同学参加，并且有数十名同学在学习后，顺利加入了百度，成为了百度的前端工程师。2017年新学期，我们在保留原有的已经经历过实践历练的模式下，又加入了更多的工程师导师资源，以及新的内容，希望能够帮助有志于通过技术改变生活的同学们掌握到希望学到的技术。新学期报名从即日起到3月15日，整个学期会进行到4月24日，期待大家的踊跃参加！</p>
+			</div>
+			<div class="left">
+				<div class="leftLogo"></div>
+				<span class="leftName">布局</span>
+			</div>
+			<div class="right">
+				<div class="right-person-logo"></div>
+				<div class="right-person-logo"></div>
+				<div class="right-person-logo"></div>
+				<div class="right-person-logo"></div>
+			</div>
+			<!--<div class="main">
+				<p>关于团队的介绍</p>
+	            <p>解释一下团队名称的来历，或是分别介绍团队成员</p>
+	            <p>（以下为示例）</p>
+	            <p>百度Web前端技术学院</p>
+	            <p>2017学学期概述</p>
+	            <p>百度前端技术学院是一个为大学生创办的免费的前端技术实践、分享、交流平台。由百度校园招聘组、百度校园品牌部、百度前端技术部以及多个百度的前端团队联合创办。学院组织了一批百度在职工程师，精心编写了数十个实践编码任务，将技术知识点系统有机地串联在各个充满趣味与挑战的任务中，同学们通过实际地编码练习来掌握知识，再辅以互相评价、学习笔记等方式，加深对于学习内容的理解。在过去的三年中，百度前端技术学院累积吸引了上万名同学参加，并且有数十名同学在学习后，顺利加入了百度，成为了百度的前端工程师。2017年新学期，我们在保留原有的已经经历过实践历练的模式下，又加入了更多的工程师导师资源，以及新的内容，希望能够帮助有志于通过技术改变生活的同学们掌握到希望学到的技术。新学期报名从即日起到3月15日，整个学期会进行到4月24日，期待大家的踊跃参加！</p>
+			</div>-->
+		</div>
+	</body>
+</html>
