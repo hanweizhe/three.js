@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>报纸排版</title>
+		<link href="css/reset.css" rel="stylesheet" type="text/css" />
+		<style type="text/css">
+			.container {
+				width:980px;
+				height: 1386px;
+				margin: 10px auto;
+				border: 1px solid #eee;
+				padding: 0 43px;
+				background-color: #fff;
+			}
+			
+			/* ============ header ===========*/
+			header {
+				height: 61px;
+				border-bottom:2px solid #938e8c ;
+			}
+			header h2,header time {
+				padding-top: 35px;
+			}
+			header h2 {
+				float: left;
+				color: #FFFFFF;
+				width: 110px;
+				height: 100%;
+				background-color: #d55d5c;
+			}
+			header time {
+				float: right;
+				color: #d45d5c;
+			}
+			
+			/* ============ header end ===========*/
+			/* ============ main ===========*/
+				/* ============ new1 ===========*/
+				.new1 {
+					margin: 35px 0 0;
+					overflow:hidden ;
+					/*border: 1px solid red;*/
+				}
+				.new1 .caption {
+					border-top: 2px solid #cc8091;
+					float: right;
+					width: 203px;
+					/*border: 1px solid red;*/
+					/*height: 301px;*/
+				}
+				.new1 .caption h2 {
+					font-size: 24px;
+					color: #000000;
+					text-decoration: underline;
+					line-height:40px ;
+					text-transform: capitalize;
+					/*单词首字母大写*/
+					font-variant: small-caps;
+					/*小型大写字母*/
+				}
+				.new1 .caption p {
+					font-style: initial;
+				}
+				.new1 .caption .about {
+					color: #676767;
+					line-height: 10px;
+					
+				}
+				.new1 .caption .keyword1 {
+					font-size: 116px;
+					color: #75b86b;
+					margin: 23px 0 10px -5px;
+				}
+				.new1 .caption .keyword2 p:first-of-type {
+					float: left;
+					font-size: 55px;
+					color: #cc8091;
+					padding-right: 10px;
+				}
+				.new1 .caption .keyword2 p:nth-of-type(2) {
+					font-size: 21px;
+					color: #cc8091;
+					padding: 10px 0 0 0;
+				}
+				.new1 .caption .keyword2 p:nth-of-type(2) span {
+					font-size: 12px;
+					color: #999;
+					
+				}
+				.new1 figure {
+					background: url(img/pic1.png) no-repeat;
+					width: 641px;
+					height: 350px;
+					margin: 0px;
+				}
+				.new1 figure .left,.new1 figure .right {
+				    width: 191px;
+				    height: 350px;
+				}
+				.new1 figure .left {
+					float: left;
+					background: rgba(0,125,0,0.3);
+				}
+				.new1 figure .right {
+					float: right;
+					background: rgba(125,0,0,0.2);
+				}
+				.new1 section {
+					float: left;
+					/*border: 1px solid red;*/
+					width: 200px;
+					margin: 20px 22px 30px 0;
+				}
+				.new1 section h3 {
+					font-size: 16px;
+					font-weight: bold;
+					margin: 10px;
+					text-decoration: underline;
+				}
+				.new1 .what h3 {
+					color: #418c59;
+				}
+				.new1 .when h3 {
+					color: #d2994f;
+				}
+				.new1 .how h3 {
+					color: #cc7680;
+				}
+				.new1 section p {
+					/*font-size: 12px;*/
+					line-height:16px ;
+				}
+				.new1 .what p {
+					font-family: "宋体";
+					color: #767777;
+				}
+				.new1 .when p {
+					opacity: 0.7;
+					color: #231815;
+				}
+				.new1 .how p {
+					line-height: 20px;
+				}
+				.new1 .how p:nth-of-type(2){
+					/*font-style: initial;*/
+					opacity: 0.7;
+					padding-top: 15px;
+				}
+				.new1 .how p:nth-of-type(2) span {
+					color: #cd4a48;
+					font-style: initial;
+				}
+				/* ============ new1 end ===========*/
+				/* ============ new2 ===========*/
+				.new2 {
+					overflow: hidden;
+					margin: 10px 0 30px 0;
+					/*border: 1px solid red;*/
+				}	
+				.new2 .essay {
+					float: left;
+					width: 415px;
+				}	
+				.new2 .essay img {
+					float: right;
+					padding: 25px 2px 15px 15px;
+				}	
+				.new2 .essay h2 {
+					text-transform: uppercase;
+					font-weight: bold;
+					font-size: 42px;
+					color:#11456b ;
+					padding-bottom: 10px;
+					margin-bottom:20px ;
+					border-bottom:2px solid #11456b ;
+				}
+				.new2 .essay h2 span {
+					font-size: 72px;
+					font-style: italic;
+					color: #f5e327;
+				}
+				.new2 .essay h2 small {
+					font-size: 33px;
+				}
+				.new2 .essay p{
+					font-size: 12px;
+					color: #767777;
+					line-height: 16px;
+					text-indent: 2em;
+				}
+				.new2 .essay p:first-of-type{
+					text-indent: 0;
+					
+				}
+				.new2 .essay .pp:first-letter {
+					font-size: 70px;
+					color: #f5e327;
+					float: left;
+					padding-right: 6px;
+				}
+				.new2 .side {
+					float: right;
+					width: 458px;
+					/*border: 1px solid red;*/
+				}
+				.side .aside-pic {
+					background: url(img/pic3.jpg) no-repeat;
+					height: 275px;
+					position: relative;
+				}
+				.side .pic-caption {
+					height: 61px;
+					background: rgba(0,0,0,0.4);
+					position: absolute;
+					bottom: 0;
+					width: 458px;
+				}
+				.side .pic-caption h3{
+					font-size: 26px;
+					color: #fff;
+					margin:8px 0px 8px 30px;
+					border-left: 3px solid #72b16a;
+					line-height: 44px;
+					padding-left: 10px;
+					word-spacing: 140%;
+				}
+				.side .pic-caption h3 span {
+					font-size: 12px;
+					color: #72B16A;
+					font-style: italic;
+					word-spacing: 140%;
+				}
+				.side .info {
+					height: 318px;
+					width: 458px;
+					background: #EEEEEE;
+					margin: 20px 0 0 ;
+					position: relative;
+					padding: 30px 20px 0 30px;
+				}
+				.side .info .info-caption {
+					position: absolute;
+					left: 0;
+					bottom: 0;
+					width: 260px;
+					height: 160px;
+					background: #D45D5C;
+					color: #fff;
+					padding: 30px 5px;
+				}
+				.side .info .info-caption h3{
+					font-size: 21px;
+					font-style: italic;
+					line-height: 24px;
+					text-transform: uppercase;
+				}
+				.side .info .info-caption h3 span {
+					font-size: 110px;
+					line-height: 86px;
+					float: left;
+					border-right: 2px solid #fff;
+					padding-right:18px;
+					margin: 0 10px 0 0 ;
+				}
+				.side .info .info-caption h3 p {
+					font-size: 12px;
+					line-height: 16px;
+					margin-top:6px;
+					text-transform: lowercase;
+					font-style: normal;
+				}
+				.side .info ul {
+					margin-left: 20px;
+				}
+				.side .info ul li {
+					list-style-type:circle;
+					padding-left: 20px;
+					margin-bottom: 20px;
+					font-size: 16px;
+					color: #5a5b5b;
+					text-align: left;
+					line-height: 20px;
+				}
+				.side .info ul li span {
+					font-size: 12px;
+					font-style: italic;
+					text-align: right;
+				}
+				.side .info blockquote {
+					position: absolute;
+					bottom: 10px;
+					right: -30px;
+					width: 165px;
+					quotes: '"' '"';
+					font-size: 14px;
+					font-style: italic;
+					line-height: 16px;
+					color: #5A5B5B;
+					
+				}
+				.side .info blockquote p:before {
+					content: open-quote;
+					vertical-align: text-bottom;
+					margin: 0 5px -6px 0px;
+					
+				}
+				.side .info blockquote p:after {
+					content: close-quote;
+					vertical-align: text-top;
+					margin: 30px 0px 0px 10px;
+				}
+				.side .info blockquote p:before,.side .info blockquote p:after{
+					font-size: 72px;
+					color: #D45D5C;
+					line-height: 0;
+					font-style: normal;
+					display: inline-block;
+				}
+				/* ============ new2 end ===========*/
+			/* ============ main end ===========*/
+			/* ============ footer ===========*/
+		    footer {
+		    	text-align: right;
+		    	color:#d45d5c ;
+		    	padding-top: 2px;
+		    	border-top:1px solid #938e8c ;
+		    }
+			/* ============ footer  end===========*/
+			
+			
+			
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<header class="clearfix">
+				<h2>hanweizhe</h2>
+				<time datetime="2017-3-25">2017-3-25</time>
+			</header>
+			
+			<main>
+				<article class="new1">
+					<div class="caption">
+						<h2>About <br/>Technology</h2>
+						<p class="about">About technology about technology about technology</p>
+						<p class="keyword1">700</p>
+						<div class="keyword2">
+							<p>3.2</p>
+							<p>CSS<br /><span>csssssssssssend</span></p>
+							
+						</div>
+					</div>
+					<figure>
+						<div class="left"></div>
+						<div class="right"></div>
+					</figure>
+					<section class="what">
+						<h3>What</h3>
+						<p>前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端</p>
+					</section>
+					<section class="when">
+						<h3>When</h3>
+						<p>前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端</p>
+					</section>
+					<section class="how">
+						<h3>How</h3>
+						<p>前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端</p>
+						<p>
+							what -----------  <span>40%</span><br />
+							what -----------  <span>40%</span><br />
+							what -----------  <span>40%</span>
+						</p>
+					</section>
+				</article>
+				<article class="new2">
+					<section class="essay">
+						<h2>
+							<span>the</span>
+							teologe of front<br />
+							<small>前端技术领域</small>
+						</h2>
+						<p class="pp">前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端<img src="img/pic2.png" width="167px" height="288px"/>前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端</p>
+						
+						<p>前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端</p>
+						<p>前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端</p>
+						<p>前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端</p>
+						<p>前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端</p>
+					</section>
+					<aside class="side">
+						<section class="aside-pic">
+							<div class="pic-caption">
+								<h3>前端技术       <span>前端技术前端技术</span>    </h3>
+							</div>
+						</section>
+						<section class="info">
+							<div class="info-caption">
+								<h3>
+									<span>0</span>one two<br />three four<br />
+								    <p>hello word hello word hello word</p>
+								</h3>
+							</div>
+							<ul>
+								<li>前端前段前端前段前端前端。。。。。。。<span>前端</span></li>
+								<li>前端前段前端前段。。。。。。。。。。。<span>前端</span></li>
+								<li>前端前段前端前段前端前段。。。。。。。<span>前端</span></li>
+								
+							</ul>
+							<blockquote>
+								<p> word hello word hello word hello word hello word hello word hello word hello word hello word hello word hello </p>
+							</blockquote>
+						</section>
+					</aside>
+				</article>
+			</main>
+			
+			<footer>
+				<small>ife.baidu.com</small>
+			</footer>
+		</div>
+	</body>
+</html>
